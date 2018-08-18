@@ -22,20 +22,20 @@ class GridBox extends Component
   }
 
   render()
-
-    // console.log(this.state.beerList)
+  {
+    console.log("beerList", this.state.beerList)
     // return <div>.</div>
 
-  {
     return this.state.beerList.map((e,i) =>
       {
         return (
-          <div class="beer-token" key={e.id}>
+          <div className="beer-token" key={e.id}>
             {console.log(e["image_url"])}
-            <img class="beer-large" src={e.image_url} alt=""/>
+            <img className="beer-large" src={e.image_url} alt=""/>
             <p>
               {e.name}
             </p>
+            <div className="add-to-favorites">+</div>
           </div>
         )
       }

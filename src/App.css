@@ -4,13 +4,13 @@
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
+  animation: App-logo-spin infinite 120s linear;
   height: 80px;
-  width: 100%;
+  width: 80px;
 }
 
 .App-header {
-  background-color: #222;
+  background-color: #222222;
   height: 150px;
   padding: 20px;
   color: white;
@@ -34,19 +34,32 @@
 .container {
   background-color: #ac5216;
   position: relative;
+  padding: 5px;
+  padding-top: 1px;
 }
 
 .main-feed {
   display: flex;
   flex-wrap: wrap;
-  width: calc(100% - 20vw);
+  justify-content: space-around;
+  width: calc(100% - 255px);
   background-color: #16ac3b;
+  border-radius: 20px;
+  /* margin: 5px; */
+  border: 1px solid #16ac3b;
 }
 
 .faves-feed{
-  width: 20vw;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  width: 200px;
   position: absolute;
   right: 0px;
   top: 0px;
-  background-color: #9b16ac;
+  padding: 50px 20px;
+  background-color: #808080;
+  border-left: 5px double #665566;
+  border-bottom: 5px double #665566;
+  border-bottom-left-radius: 40px;
 }

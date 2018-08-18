@@ -13,6 +13,7 @@ const {
 app.use(json());
 
 app.get('/api/beers', getBeers);
+
 app.post('/api/beers', addBeer);
 app.put('/api/beers/:id', editBeer);
 app.delete('/api/beers/:id', deleteBeer);

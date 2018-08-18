@@ -3,9 +3,10 @@ const axios = require('axios');
 var beers = [];
 var faves = [];
 var numBeers = 0;
+var pages =5;
 
 axios
-  .get('https://api.punkapi.com/v2/beers')
+  .get(`https://api.punkapi.com/v2/beers?per_page=80`)
   .then((response) => { pushTwentyFiveBeers(response.data);})
   .catch(err => console.log(err));
 
