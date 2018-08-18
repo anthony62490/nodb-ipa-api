@@ -1,0 +1,15 @@
+.beer-token {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #000000;
+  height: 340px;
+  width: 170px;
+  margin: 5px;
+  padding: 30px;
+}
+
+img.beer-large {
+  width: auto;
+  height: 80%;
+}

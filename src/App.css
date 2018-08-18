@@ -1,10 +1,12 @@
 .App {
+  box-sizing: border-box;
   text-align: center;
 }
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
+  width: 100%;
 }
 
 .App-header {
@@ -25,4 +27,26 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+/* //////////////////////////////////////// */
+
+.container {
+  background-color: #ac5216;
+  position: relative;
+}
+
+.main-feed {
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(100% - 20vw);
+  background-color: #16ac3b;
+}
+
+.faves-feed{
+  width: 20vw;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  background-color: #9b16ac;
 }

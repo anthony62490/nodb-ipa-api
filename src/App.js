@@ -1,27 +1,11 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import GridBox from './components/GridBox'
+import FaveBox from './components/FaveBox'
 import './App.css';
 
 class App extends Component 
 {
-  // constructor()
-  // {
-  //   super()
-  //   this.state =
-  //   {
-  //     currentDisplay: []
-  //   }
-  // }
-
-  // componentDidMount()
-  // {
-  //   axios
-  //     .get('/api/beers')
-  //     .then((response) => this.setState({currentDisplay: response.data}) )
-  //     .catch((error) => console.log(error))
-  // }
-
   render() 
   {
     return (
@@ -30,7 +14,17 @@ class App extends Component
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">IPA|API</h1>
         </header>
-        <GridBox/>
+        <div class="container">
+
+          <div class="main-feed">
+            <GridBox/>
+          </div>
+
+          <div class="faves-feed">
+            <FaveBox/>
+          </div>
+
+        </div>
       </div>
     );
   }

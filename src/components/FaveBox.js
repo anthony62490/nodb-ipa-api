@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import './GridBox.css';
+import './FaveBox.css';
 
-class GridBox extends Component
+class FaveBox extends Component
 {
   constructor()
   {
@@ -30,12 +30,9 @@ class GridBox extends Component
     return this.state.beerList.map((e,i) =>
       {
         return (
-          <div class="beer-token" key={e.id}>
+          <div class="beer-token-small" key={e.id}>
             {console.log(e["image_url"])}
-            <img class="beer-large" src={e.image_url} alt=""/>
-            <p>
-              {e.name}
-            </p>
+            <img class="beer-small" src={e.image_url} alt=""/>
           </div>
         )
       }
@@ -43,4 +40,4 @@ class GridBox extends Component
   }
 }
 
-export default GridBox;
+export default FaveBox;
