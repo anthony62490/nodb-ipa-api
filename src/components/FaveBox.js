@@ -16,7 +16,7 @@ class FaveBox extends Component
   componentDidMount()
   {
     axios
-      .get('/api/beers')
+      .get('/api/faves')
       .then((res) => this.setState({beerList: res.data}) )
       .catch(err => console.log(err));
   }
@@ -30,9 +30,9 @@ class FaveBox extends Component
     return this.state.beerList.map((e,i) =>
       {
         return (
-          <div class="beer-token-small" key={e.id}>
-            {console.log(e["image_url"])}
-            <img class="beer-small" src={e.image_url} alt=""/>
+          <div className="beer-token-small" key={e.id}>
+            {/* {console.log(e["image_url"])} */}
+            <img className="beer-small" src={e.image_url} alt=""/>
           </div>
         )
       }

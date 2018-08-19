@@ -14,9 +14,9 @@
 
 .add-to-favorites {
   position: absolute;
-  border: 3px solid #002288;
-  bottom: 5px;
-  right: 5px;
+  border: 1px solid #002288;
+  bottom: 7px;
+  right: 7px;
   border-radius: 50px;
   height: 20px;
   width: 20px;
@@ -29,9 +29,10 @@
 .add-to-favorites:hover {
   background-color: #7985b67c;
   color: #FFFFFFFF;
-  border: 1px;
-  bottom: 8px;
-  right: 8px;
+  border: 3px solid #002288;;
+  bottom: 5px;
+  right: 5px;
+  cursor: default;
 }
 
 img.beer-large {

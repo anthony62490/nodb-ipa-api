@@ -1,36 +1,24 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import './GridBox.css';
 
 class GridBox extends Component
 {
-  constructor()
+  constructor(props)
   {
-    super();
-    this.state =
-    {
-      beerList: []
-    };
-  }
-
-  componentDidMount()
-  {
-    axios
-      .get('/api/beers')
-      .then((res) => this.setState({beerList: res.data}) )
-      .catch(err => console.log(err));
+    super(props);
   }
 
   render()
   {
-    console.log("beerList", this.state.beerList)
+    // console.log("beerList", this.props.beersToDisplay)
     // return <div>.</div>
 
-    return this.state.beerList.map((e,i) =>
+    return this.props.beersToDisplay.map((e,i) =>
       {
         return (
           <div className="beer-token" key={e.id}>
-            {console.log(e["image_url"])}
+            {/* {console.log(e["image_url"])} */}
             <img className="beer-large" src={e.image_url} alt=""/>
             <p>
               {e.name}

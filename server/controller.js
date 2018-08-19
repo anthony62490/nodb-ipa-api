@@ -1,7 +1,17 @@
 const axios = require('axios');
 
 var beers = [];
-var faves = [];
+var faves = [
+  {
+    "id": 0,
+    "name": "B4FT",
+    "tagline": "Bourbon Barrel Banana Bochet French Toast",
+    "description": "A dark, smokey, and sweet bochet fermented with toasted honey and french toast spices. Aged in bourbon barrels.",
+    "abv": 10.5,
+    "ibu": 5,
+    "image_url": "https://www.quickanddirtytips.com/sites/default/files/images/4706/bee.jpg"
+  }
+];
 var numBeers = 0;
 var pages =5;
 
@@ -55,7 +65,29 @@ const editBeer = (req, res, next) =>
   res.status(200).send(beers);
 }
 
-//TODO: DELETE
+//FAVORITES REQUESTS
+
+const getFaves = (req, res, next) =>
+{
+  res.status(200).send(faves);
+}
+
+const addToFaves = (req, res, next) =>
+{
+  const reqID = Number(req.body.id);
+  if(faves.find( x => x["id"] === reqID ))
+  {
+    //content is rejected
+    res.status(409).send(`Internal conflict. Content with id ${req.body.id} already exists`)
+  }
+  else
+  {
+    faves.push(req.body);
+    res.status(200).send(faves);
+  }
+}
+
+//TODO: Change delete to only affect favorites. There's no reason to delete from the main list
 const deleteBeer = (req, res, next) =>
 {
   console.log("DELIT!");
@@ -64,10 +96,29 @@ const deleteBeer = (req, res, next) =>
   res.status(200).send(beers);
 }
 
+//MANIPULATION OF CURRENT POOL
+
+const searchAllBeers = (req, res, next) =>
+{
+  let {terms} = req.query;
+  console.log("SEARCHALLBEERS", terms);
+  console.log( beers[1].description.includes(terms) );
+  let returnValue = beers.filter( e => 
+  { 
+    return (e.name.includes(terms) ||
+    e.tagline.includes(terms) ||
+    e.description.includes(terms))
+  })
+  res.status(200).send(returnValue);
+}
+
 module.exports = 
 {
   getBeers,
   addBeer,
   editBeer,
-  deleteBeer
+  getFaves,
+  addToFaves,
+  deleteBeer,
+  searchAllBeers
 };
