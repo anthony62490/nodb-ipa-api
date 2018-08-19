@@ -20,7 +20,7 @@ class App extends Component
     }
 
     this.handleInput = this.handleInput.bind(this);
-    this.searchButtonEvent = this.searchButtonEvent(this);
+    this.searchButtonEvent = this.searchButtonEvent.bind(this);
   }
 
   componentDidMount()
@@ -47,7 +47,7 @@ class App extends Component
     //If the current state is altered as-is, then each subsequent search would limit the pool further
     //Request a new list from the local API and supply a search term
     axios
-      .get(`/api/beers?terms=${this.state.userInput}`) //send userInput as a query
+      .get(`/api/beers/search?terms=${this.state.userInput}`) //send userInput as a query
       .then( (res) => this.setState({currentBeers:res.data}) )
       .catch(err=> console.log("Error in searchButtonEvent(), App.js: ", err));
 

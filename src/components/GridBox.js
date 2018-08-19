@@ -20,9 +20,11 @@ class GridBox extends Component
           <div className="beer-token" key={e.id}>
             {/* {console.log(e["image_url"])} */}
             <img className="beer-large" src={e.image_url} alt=""/>
-            <p>
-              {e.name}
-            </p>
+            <p>{e.name}</p>
+            {/* <FaveButton/>
+            {
+              <div onClick={()=> }>+</div>
+            } */}
             <div className="add-to-favorites">+</div>
           </div>
         )
