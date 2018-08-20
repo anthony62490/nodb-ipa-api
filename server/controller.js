@@ -1,7 +1,18 @@
 const axios = require('axios');
 
 var beers = [];
-var faves = [];
+var faves = 
+[
+  {
+    "id": 2,
+    "name": "B4FT",
+    "tagline": "Bourbon Barrel Banana Bochet French Toast",
+    "description": "A dark, smokey, and sweet bochet fermented with toasted honey and french toast spices. Aged in bourbon barrels.",
+    "abv": 10.5,
+    "ibu": 5,
+    "image_url": "https://www.quickanddirtytips.com/sites/default/files/images/4706/bee.jpg"
+  }
+];
 var numBeers = 0;
 var pages =5;
 
@@ -88,9 +99,9 @@ const addNoteToFave = (req, res, next) =>
 
 const deleteFromFaves = (req, res, next) =>
 {
-  console.log("DELIT!");
+  console.log("D'ELIT!");
   const newBeers = faves.filter( (i) => i.id !== Number(req.params.id));
-  beers = newBeers;
+  faves = newBeers;
   res.status(200).send(faves);
 }
 

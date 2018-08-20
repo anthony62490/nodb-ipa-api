@@ -11,6 +11,8 @@ class FaveBox extends Component
     {
       beerList: []
     };
+
+    this.removeFromFavesList = this.removeFromFavesList.bind(this);
   }
 
   componentDidMount()
@@ -23,11 +25,20 @@ class FaveBox extends Component
 
   addNote(id, phrase)
   {
-    console.log("POW!");
     axios
       .put(`/api/beers?id=${id}&note=${phrase}`)
       .then(res => this.setState({beerList:res.data}) )
       .catch(err => console.log(err));
+  }
+
+  removeFromFavesList(id)
+  {
+    //to delete from the faves list, make a DELETE request, send the requested ID as a feature
+    //Finding the real index number happens on the backend
+    axios
+      .delete(`/api/faves/${id}`)
+      .then( (res) => this.setState({beerList: res.data}) )
+      .catch(err=> console.log("Error in removeFromFavesList(), App.js: ", err));
   }
 
   render()
@@ -41,10 +52,10 @@ class FaveBox extends Component
             <div className="fave-interface-container">
               <input 
                 className="add-note-field" 
-                placeholder={e.note || "make notes!"} 
+                placeholder={e.note || " make notes!"} 
                 onChange={(x) => this.addNote(e.id, x.target.value)}/>
               {/* <button></button> */}
-              <div className="remove-button">x</div>
+              <div className="remove-button" onClick={() => this.removeFromFavesList(e.id)}>x</div>
             </div>
           </div>
         )

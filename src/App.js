@@ -5,7 +5,6 @@ import GridBox from './components/GridBox'
 import FaveBox from './components/FaveBox'
 import SearchBar from './components/SearchBar';
 
-// import logo from './pics/mirror-sprite.png';
 import './App.css';
 
 class App extends Component 
@@ -58,31 +57,28 @@ class App extends Component
   addToFavesList(id)
   {
     //to add an item to the favorites list, get the singular item and send it through a PUT request
-    //Alter the backend-hosted favorites list so that the page can be refreshed and not lose the data
+    //Alter the main backend-hosted list so that the page can be refreshed and not lose the data
     let newFavoriteIndex = this.state.currentBeers.map((x) => x.id ).indexOf(id);
     console.log('NEW FAVORITE: ', id);
     axios.post(`/api/faves?newFave=${id}`)
   }
 
+  //Deleting from the favorites list is handled by the FaveBox
+  //since it doesn't require access to the full list
+
   render() 
   {
     return (
       <div className="App">
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">IPA|API</h1>
-        </header> */}
         <div className="container">
           <SearchBar handleInputFn={this.handleInput} searchButtonEventFn={this.searchButtonEvent} userInput={this.state.userInput} />
           <div className="main-feed">
             <GridBox beersToDisplay={this.state.currentBeers} addToFavesListFn={this.addToFavesList} />
             Right Column: 200px Demo content nothing to read here Welcome to Dynamic Drive CSS Library Demo content nothing to read here Demo content nothing to read here Welcome to Dynamic Drive CSS Library Welcome to Dynamic Drive CSS Library Demo content nothing to read here Demo content nothing to read here Welcome to Dynamic Drive CSS Library Demo content nothing to read here Welcome to Dynamic Drive CSS Library This is just some filler text This is just some filler text Demo content nothing to read here
           </div>
-
           <div className="faves-feed">
             <FaveBox/>
           </div>
-
         </div>
       </div>
     );
