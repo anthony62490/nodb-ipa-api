@@ -25,7 +25,7 @@ class GridBox extends Component
             {
               <div onClick={()=> }>+</div>
             } */}
-            <div className="add-to-favorites">+</div>
+            <div className="add-to-favorites" onClick={() => this.props.addToFavesListFn(e.id)}>+</div>
           </div>
         )
       }

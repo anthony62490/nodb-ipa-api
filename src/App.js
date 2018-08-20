@@ -21,6 +21,7 @@ class App extends Component
 
     this.handleInput = this.handleInput.bind(this);
     this.searchButtonEvent = this.searchButtonEvent.bind(this);
+    this.addToFavesList = this.addToFavesList.bind(this);
   }
 
   componentDidMount()
@@ -54,6 +55,15 @@ class App extends Component
     this.setState({userInput:''});
   }
 
+  addToFavesList(id)
+  {
+    //to add an item to the favorites list, get the singular item and send it through a PUT request
+    //Alter the backend-hosted favorites list so that the page can be refreshed and not lose the data
+    let newFavoriteIndex = this.state.currentBeers.map((x) => x.id ).indexOf(id);
+    console.log('NEW FAVORITE: ', id);
+    axios.post(`/api/faves?newFave=${id}`)
+  }
+
   render() 
   {
     return (
@@ -63,9 +73,9 @@ class App extends Component
           <h1 className="App-title">IPA|API</h1>
         </header> */}
         <div className="container">
-          <SearchBar handleInputFn={this.handleInput} searchButtonEventFn={this.searchButtonEvent} />
+          <SearchBar handleInputFn={this.handleInput} searchButtonEventFn={this.searchButtonEvent} userInput={this.state.userInput} />
           <div className="main-feed">
-            <GridBox beersToDisplay={this.state.currentBeers} />
+            <GridBox beersToDisplay={this.state.currentBeers} addToFavesListFn={this.addToFavesList} />
             Right Column: 200px Demo content nothing to read here Welcome to Dynamic Drive CSS Library Demo content nothing to read here Demo content nothing to read here Welcome to Dynamic Drive CSS Library Welcome to Dynamic Drive CSS Library Demo content nothing to read here Demo content nothing to read here Welcome to Dynamic Drive CSS Library Demo content nothing to read here Welcome to Dynamic Drive CSS Library This is just some filler text This is just some filler text Demo content nothing to read here
           </div>
 

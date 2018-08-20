@@ -21,18 +21,31 @@ class FaveBox extends Component
       .catch(err => console.log(err));
   }
 
+  addNote(id, phrase)
+  {
+    console.log("POW!");
+    axios
+      .put(`/api/beers?id=${id}&note=${phrase}`)
+      .then(res => this.setState({beerList:res.data}) )
+      .catch(err => console.log(err));
+  }
+
   render()
-
-    // console.log(this.state.beerList)
-    // return <div>.</div>
-
   {
     return this.state.beerList.map((e,i) =>
       {
         return (
           <div className="beer-token-small" key={e.id}>
-            {/* {console.log(e["image_url"])} */}
-            <img className="beer-small" src={e.image_url} alt=""/>
+            {e.name}
+            <img className="beer-small" src={e.image_url} alt={e.name}/>
+            <div className="fave-interface-container">
+              <input 
+                className="add-note-field" 
+                placeholder={e.note || "make notes!"} 
+                onChange={(x) => this.addNote(e.id, x.target.value)}/>
+              {/* <button></button> */}
+              <div className="remove-button">x</div>
+            </div>
           </div>
         )
       }
