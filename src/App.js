@@ -17,13 +17,15 @@ class App extends Component
     {
       currentBeers: [],
       faveBeers: [],
-      userInput: ''
+      userInput: '',
+      currentKey: null
     }
 
     this.handleInput = this.handleInput.bind(this);
     this.searchButtonEvent = this.searchButtonEvent.bind(this);
     this.addToFavesList = this.addToFavesList.bind(this);
     this.removeFromFavesList = this.removeFromFavesList.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   componentDidMount()
@@ -45,6 +47,18 @@ class App extends Component
   handleInput(str)
   {
     this.setState({userInput: str.target.value});
+  }
+
+  handleKeyPress(e)
+  {
+    const {userInput} = this.state;
+    if (e.key === "Enter" && userInput.length !== 0)
+    {
+      axios
+        .get(`/api/beers/search?terms=${this.state.userInput}`) //send userInput as a query
+        .then( (res) => this.setState({currentBeers:res.data}) )
+        .catch(err=> console.log("Error in searchButtonEvent(), App.js: ", err));
+    }
   }
 
   searchButtonEvent()
@@ -101,9 +115,17 @@ class App extends Component
     return (
       <div className="App">
         <div className="container">
-          <SearchBar handleInputFn={this.handleInput} searchButtonEventFn={this.searchButtonEvent} userInput={this.state.userInput} />
+          <SearchBar 
+            handleInputFn={this.handleInput} 
+            searchButtonEventFn={this.searchButtonEvent} 
+            userInput={this.state.userInput} 
+            checkForEnter={this.handleKeyPress}
+          />
           <div className="main-feed">
-            <GridBox addToFavesListFn={this.addToFavesList} beersToDisplay={this.state.currentBeers} />
+            <GridBox 
+              addToFavesListFn={this.addToFavesList} 
+              beersToDisplay={this.state.currentBeers} 
+            />
           </div>
           <div className="main-feed-alt">
             <button onClick={() => this.requestMoreBeers()}>More beer?</button>

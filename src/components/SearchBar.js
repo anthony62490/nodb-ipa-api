@@ -9,7 +9,13 @@ const SearchBar = (props) =>
     return (
       <div className="search-bar">
         <img src={logo} className="App-logo" alt="logo" />
-        <input id="search-field" type="text" onChange={(x) => props.handleInputFn(x)} value={props.userInput} />
+        <input 
+          id="search-field" 
+          type="text" 
+          onChange={(x) => props.handleInputFn(x)} 
+          value={props.userInput} 
+          onKeyPress={props.checkForEnter} 
+        />
         <button onClick={() => props.searchButtonEventFn()}>Search for Keywords</button>
       </div>
     )
