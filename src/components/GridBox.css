@@ -3,7 +3,10 @@
   flex-direction: column;
   justify-content: center;
   border: 1px solid #000000;
-  color: #FFFFFF;
+  background-color: #C2BB99;
+  color: #637330;
+  font-family: 'Merriweather', serif;
+  font-size: 16px;
   border-radius: 10px;
   height: 250px;
   width: 170px;
@@ -14,7 +17,7 @@
 
 .add-to-favorites {
   position: absolute;
-  border: 1px solid #002288;
+  border: 1px solid #637330;
   bottom: 7px;
   right: 7px;
   border-radius: 50px;
@@ -27,9 +30,9 @@
 }
 
 .add-to-favorites:hover {
-  background-color: #7985b67c;
-  color: #FFFFFFFF;
-  border: 3px solid #002288;;
+  background-color: #637330;
+  color: #000000;
+  border: 3px solid #000000;;
   bottom: 5px;
   right: 5px;
   cursor: default;

@@ -6,6 +6,7 @@ const port = 3001;
 const {
   getBeers,
   searchAllBeers,
+  getMoreBeersFromServer,
   getFaves,
   addToFaves,
   addNoteToFave,
@@ -16,6 +17,7 @@ app.use(json());
 
 //requests for searching and populating the backend info
 app.get('/api/beers', getBeers);
+app.get('/api/beers/more', getMoreBeersFromServer);
 app.get('/api/beers/search', searchAllBeers);//user-supplied string of terms. This funtion will attempt to find any and all matches
 //app.post('/api/beers', addBeer); //probably won't use this
 

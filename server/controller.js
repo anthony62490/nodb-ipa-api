@@ -1,25 +1,38 @@
 const axios = require('axios');
 
 var beers = [];
-var faves = 
-[
-  {
-    "id": 2,
-    "name": "B4FT",
-    "tagline": "Bourbon Barrel Banana Bochet French Toast",
-    "description": "A dark, smokey, and sweet bochet fermented with toasted honey and french toast spices. Aged in bourbon barrels.",
-    "abv": 10.5,
-    "ibu": 5,
-    "image_url": "https://www.quickanddirtytips.com/sites/default/files/images/4706/bee.jpg"
-  }
-];
+var faves = [];
 var numBeers = 0;
-var pages =5;
 
-axios
-  .get(`https://api.punkapi.com/v2/beers?per_page=80`)
-  .then((response) => { pushTwentyFiveBeers(response.data);})
+//used to keep track of which page of data needs to be asked for next
+var nextPage = 1;
+
+//controls how many data objects are requested at a time. 
+//36 is used because it is anti-prime (avoids lonely entries at the page end)
+const beersPerPage = 36;
+
+//defining generic "ask database for more data" function
+const getMoreBeersFromServer = (req, res, next) => 
+{
+  axios
+  .get(`https://api.punkapi.com/v2/beers?page=${nextPage}&per_page=${beersPerPage}`)
+  .then((response) => 
+  { 
+    pushPageOfBeers(response.data);
+    res.status(200).send(beers);
+  })
   .catch(err => console.log(err));
+  //after calling the database for more results, increment the page counter
+  console.log("nextPage", nextPage)
+  nextPage++;
+}
+
+//Make initial call to the server for a page of data
+getMoreBeersFromServer();
+
+/////////////
+//FUNCTIONS
+
 
 // Main API display and search functions
 // MANIPULATION OF CURRENT POOL
@@ -29,9 +42,12 @@ const getBeers = (req, res, next) =>
   res.status(200).send(beers);
 }
 
-const pushTwentyFiveBeers = (responseData) =>
+const pushPageOfBeers = (responseData) =>
 {
   //requires (response.data) to function
+  //used to streamline the data population task
+  // Instead of pushing all of the data to the local server,
+  // pPoB() pulls out specific key/values and adds them to a custom object
   for(let i=0; i<responseData.length; i++)
     {
       let {id, name, tagline, description, image_url, abv, ibu} = responseData[i];
@@ -43,14 +59,14 @@ const pushTwentyFiveBeers = (responseData) =>
 
 const searchAllBeers = (req, res, next) =>
 {
-  let {terms} = req.query;
-  console.log("SEARCHALLBEERS", terms);
-  console.log( beers[1].description.includes(terms) );
+  //the filter converts everything to lowercase before searching
+  //returns a match if any word in the name, tagline, or description is found
+  let terms = req.query.terms.toLowerCase();
   let returnValue = beers.filter( e => 
   { 
-    return (e.name.includes(terms) ||
-    e.tagline.includes(terms) ||
-    e.description.includes(terms))
+    return (e.name.toLowerCase().includes(terms) ||
+    e.tagline.toLowerCase().includes(terms) ||
+    e.description.toLowerCase().includes(terms))
   })
   res.status(200).send(returnValue);
 }
@@ -64,9 +80,9 @@ const getFaves = (req, res, next) =>
 
 const addToFaves = (req, res, next) => 
 {
-  console.log('req.query = ',req.query)
+  // console.log('req.query = ',req.query)
   const newFave = Number(req.query.newFave);
-  console.log('newFave = ', newFave);
+  // console.log('newFave = ', newFave);
   // console.log(beers[reqID-2]);// -2 because the Punk database is seeded at 1
   if(faves.find( x => x["id"] === newFave ))
   {
@@ -109,6 +125,7 @@ module.exports =
 {
   getBeers,
   searchAllBeers,
+  getMoreBeersFromServer,
   getFaves,
   addToFaves,
   addNoteToFave,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import GridBox from './components/GridBox'
+// import MoreInfoBox from './components/MoreInfoBox'//move this into GridBox when it looks good
 import FaveBox from './components/FaveBox'
 import SearchBar from './components/SearchBar';
 
@@ -15,12 +16,14 @@ class App extends Component
     this.state =
     {
       currentBeers: [],
+      faveBeers: [],
       userInput: ''
     }
 
     this.handleInput = this.handleInput.bind(this);
     this.searchButtonEvent = this.searchButtonEvent.bind(this);
     this.addToFavesList = this.addToFavesList.bind(this);
+    this.removeFromFavesList = this.removeFromFavesList.bind(this);
   }
 
   componentDidMount()
@@ -33,6 +36,9 @@ class App extends Component
         // console.log(res.data)
       })
       .catch(err=> console.log("Error in componentDidMount(), App.js: ", err));
+    axios
+      .get('/api/faves')
+      .then((res) => this.setState({faveBeers: res.data}))
   }
 
 
@@ -60,11 +66,35 @@ class App extends Component
     //Alter the main backend-hosted list so that the page can be refreshed and not lose the data
     let newFavoriteIndex = this.state.currentBeers.map((x) => x.id ).indexOf(id);
     console.log('NEW FAVORITE: ', id);
-    axios.post(`/api/faves?newFave=${id}`)
+    axios
+      .post(`/api/faves?newFave=${id}`)
+      .then( (res) => this.setState({faveBeers: res.data}) )
+      .catch(err=> console.log("Error in addToFavesList(), App.js: ", err));
   }
 
-  //Deleting from the favorites list is handled by the FaveBox
-  //since it doesn't require access to the full list
+  removeFromFavesList(id)
+  {
+    //to delete from the faves list, make a DELETE request, send the requested ID as a parameter
+    //Finding the real index number happens on the backend
+    axios
+      .delete(`/api/faves/${id}`)
+      .then( (res) => 
+      {
+        console.log(res);
+        return this.setState({faveBeers: res.data});
+      })
+      .catch(err=> console.log("Error in removeFromFavesList(), App.js: ", err));
+  }
+
+  requestMoreBeers()
+  {
+    // calls the server again to request the next page of results
+    // the requested beers are persistent on the backend until the server restarts
+    axios
+      .get('/api/beers/more')
+      .then(response => this.setState({currentBeers: response.data}) )
+      .catch(err => console.log("Error in requestMoreBeers(), App.js: ", err));
+  }
 
   render() 
   {
@@ -73,11 +103,13 @@ class App extends Component
         <div className="container">
           <SearchBar handleInputFn={this.handleInput} searchButtonEventFn={this.searchButtonEvent} userInput={this.state.userInput} />
           <div className="main-feed">
-            <GridBox beersToDisplay={this.state.currentBeers} addToFavesListFn={this.addToFavesList} />
-            Right Column: 200px Demo content nothing to read here Welcome to Dynamic Drive CSS Library Demo content nothing to read here Demo content nothing to read here Welcome to Dynamic Drive CSS Library Welcome to Dynamic Drive CSS Library Demo content nothing to read here Demo content nothing to read here Welcome to Dynamic Drive CSS Library Demo content nothing to read here Welcome to Dynamic Drive CSS Library This is just some filler text This is just some filler text Demo content nothing to read here
+            <GridBox addToFavesListFn={this.addToFavesList} beersToDisplay={this.state.currentBeers} />
+          </div>
+          <div className="main-feed-alt">
+            <button onClick={() => this.requestMoreBeers()}>More beer?</button>
           </div>
           <div className="faves-feed">
-            <FaveBox/>
+            <FaveBox beerList={this.state.faveBeers} removeFromFavesList={this.removeFromFavesList} />
           </div>
         </div>
       </div>

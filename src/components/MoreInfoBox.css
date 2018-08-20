@@ -1,0 +1,27 @@
+.more-info-popup {
+  border: 3px solid #66412B;
+  border-radius: 10px;
+  color: #000000;
+  background-color: #C2BB99;
+  font-family: 'Merriweather', serif;
+  height: calc(250px + 16px);
+  width: 219px;
+  padding: 5px;
+  margin: 5px;
+  position: absolute;
+  top: -8px;
+  left: -8px;
+}
+
+.popup-info {
+  text-align: left;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.popup-info-title {
+  color: #66412B;
+  line-height: 16px;
+  font-size: 16px;
+  margin: 5px;
+}

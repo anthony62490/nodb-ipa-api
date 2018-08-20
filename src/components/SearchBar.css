@@ -3,8 +3,15 @@
   display: flex;
   margin: 5px 0;
   padding: 15px 50px;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #d9d1abb4;
+  border-radius: 3px;
+  background-color: #221E1F;
   width: calc(100% - 255px - 100px);
   justify-content: right;
   align-items: center;
+}
+
+#search-field {
+  margin: 5px;
+  margin-left: 400px;
 }

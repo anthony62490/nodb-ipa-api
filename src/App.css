@@ -7,7 +7,7 @@
   animation: App-logo-spin infinite 120s linear;
   height: 80px;
   width: 80px;
-  margin-right: 30px;
+  /* margin-right: 400px; */
 }
 
 .App-header {
@@ -33,7 +33,7 @@
 /* //////////////////////////////////////// */
 
 .container {
-  background-color: #ac5216;
+  background-color: #221E1F;
   position: relative;
   padding: 5px;
   padding-top: 1px;
@@ -44,10 +44,17 @@
   flex-wrap: wrap;
   justify-content: space-around;
   width: calc(100% - 255px);
-  background-color: #16ac3b;
-  border-radius: 20px;
+  background-color: #221E1F;
+  border-radius: 10px;
   /* margin: 5px; */
-  border: 1px solid #16ac3b;
+  /* border: 1px solid #ffffff; */
+}
+
+.main-feed-alt {
+  /* border: 1px solid #ffffff; */
+  width: calc(100% - 255px);
+  background-color: #221E1F;
+  margin: 50px 0;
 }
 
 .faves-feed{
@@ -59,8 +66,8 @@
   right: 0px;
   top: 0px;
   padding: 50px 20px;
-  background-color: #808080;
-  border-left: 5px double #665566;
-  border-bottom: 5px double #665566;
+  background-color: #221E1F;
+  border-left: 5px double #362d36;
+  border-bottom: 5px double #362d36;
   border-bottom-left-radius: 40px;
 }
